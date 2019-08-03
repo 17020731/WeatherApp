@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity"
+    >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:background="@drawable/night_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgMenu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/menu"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            />
+        <AutoCompleteTextView
+            android:id="@+id/edSearch"
+            android:layout_centerInParent="true"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:imeOptions="actionDone"
+            android:hint="Address, City and Location"
+            android:textSize="15dp"
+            android:textColorHint="#9B9191"
+            android:textColor="#FFF"
+            android:inputType="text"
+            android:maxLines="1"/>
+        <ImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@mipmap/search"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_below="@id/relativeLayout"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/mViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="500dp">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:background="#797EA8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.google.android.material.tabs.TabLayout>
+    </androidx.viewpager.widget.ViewPager>
+
+</RelativeLayout>
