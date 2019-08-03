@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import java.util.Calendar;
 
 public class HomeFragment extends Fragment {
+
     HttpRequest request = new HttpRequest();
     SQLHelper sqlHelper;
 
@@ -52,10 +53,11 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         tvCity = v.findViewById(R.id.tvCity);
@@ -97,22 +99,23 @@ public class HomeFragment extends Fragment {
         imgWeather4 = v.findViewById(R.id.imgWeather4);
         imgWeather5 = v.findViewById(R.id.imgWeather5);
 
-
-        //Set up thời gian
-        update_datetime();
+        //Tạo đối tượng sharepreference
         sharedPreferences = getActivity().getSharedPreferences("search", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        //Tạo đối tượng SQL
         sqlHelper = new SQLHelper(getActivity());
 
+        //Lấy dữ liệu và hiển thị
         new HttpWeatherCity().execute(sharedPreferences.getString("id", "1581130"));
-//        new HttpWeatherCity().execute("1581130");
 
+        //Set up thời gian
+        update_datetime();
         return v;
 
     }
 
-
+    //Gọi imageView theo số thứ tự ( VD: 1 là imgWeather1, 2 là imgWeather2, ...)  để tiện cho vòng for
     public ImageView formatWeatherImageView (int i){
         ImageView v = null;
         if(i == 1){
@@ -133,6 +136,7 @@ public class HomeFragment extends Fragment {
         return v;
     }
 
+    //Gọi TextView theo số thứ tự ( VD: 1 là temp1, 2 là temp2,...) để tiện cho vòng for
     public TextView formatTempTextView(int i){
         TextView tv = null;
         if(i == 1){
@@ -152,7 +156,8 @@ public class HomeFragment extends Fragment {
         }
         return tv;
     }
-    //format Day of Week (ex. Monday = "MON", Tuesday = "TUE")
+
+    //Cài đặt các thứ trong tuần ( VD : 1 là SUN, 2 là MON, ...)
     public String formatDayOfWeek(int day){
         String date = "";
         switch (day){
@@ -181,40 +186,36 @@ public class HomeFragment extends Fragment {
         return date;
     }
 
-    //Set DateTime for next 5 days
+    //Cài đặt ngày cho 5 ngày tiếp theo
     public void update_datetime(){
-//        Calendar c = getTime("2019-07-07 11:52:30");
+
         Calendar c = Calendar.getInstance();
         tvNow.setText(c.get(Calendar.DAY_OF_MONTH)+"/"+(c.get(Calendar.MONTH)+1));
 
         c.add(Calendar.DAY_OF_YEAR, 1);
 
-
         day1.setText(formatDayOfWeek(c.get(Calendar.DAY_OF_WEEK)));
         date1.setText(c.get(Calendar.DAY_OF_MONTH)+"/"+(c.get(Calendar.MONTH)+1));
-//
+
         c.add(Calendar.DAY_OF_YEAR, 1);
         day2.setText(formatDayOfWeek(c.get(Calendar.DAY_OF_WEEK)));
         date2.setText(c.get(Calendar.DAY_OF_MONTH)+"/"+(c.get(Calendar.MONTH)+1));
-//
+
         c.add(Calendar.DAY_OF_YEAR, 1);
         day3.setText(formatDayOfWeek(c.get(Calendar.DAY_OF_WEEK)));
         date3.setText(c.get(Calendar.DAY_OF_MONTH)+"/"+(c.get(Calendar.MONTH)+1));
-//
+
         c.add(Calendar.DAY_OF_YEAR, 1);
         day4.setText(formatDayOfWeek(c.get(Calendar.DAY_OF_WEEK)));
         date4.setText(c.get(Calendar.DAY_OF_MONTH)+"/"+(c.get(Calendar.MONTH)+1));
-//
+
         c.add(Calendar.DAY_OF_YEAR, 1);
         day5.setText(formatDayOfWeek(c.get(Calendar.DAY_OF_WEEK)));
         date5.setText(c.get(Calendar.DAY_OF_MONTH)+"/"+(c.get(Calendar.MONTH)+1));
 
     }
 
-
-
-
-    // Theo ten thanh pho
+    //Xử lí đa luồng để lấy API
     public class HttpWeatherCity extends AsyncTask<String, Void, String> {
 
 
@@ -223,13 +224,16 @@ public class HomeFragment extends Fragment {
         }
         @Override
         protected String doInBackground(String... params) {
-
-
+            //Todo: Đường dẫn 1 là đường dẫn để lấy api thời tiết hiện tại
             String urlCurrent = "https://api.openweathermap.org/data/2.5/weather?id="+params[0]+"&units=metric&appid=211ff006de9aba9ddd122331f87cdf8b";
+            //Todo: Đường dẫn 2 là đường dẫn để lấy api thời tiết dự báo trong 5 ngày/3 giờ
             String urlDaily = "https://api.openweathermap.org/data/2.5/forecast/daily?id="+params[0]+"&units=metric&appid=211ff006de9aba9ddd122331f87cdf8b&cnt=6";
 
+            //Nhận kết quả trả về từ đường dẫn 1
             String response1 = request.sendGet(urlCurrent);
+            //Nhận kết quả trả về từ đường dẫn 2
             String response2 = request.sendGet(urlDaily);
+            //Nối 2 kết quả bằng dấu enter
             String response = response1 +"\n" + response2;
 
             return response;
@@ -238,100 +242,89 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPostExecute(String response) {
 
+            //Todo: Tách 2 kết quả
             int index = response.indexOf("\n");
             String response1 = response.substring(0, index);
             String response2 = response.substring(index+1);
 
+            //Tạo đối tượng để thêm vào CSDL History
             History history = new History();
-            sharedPreferences = getActivity().getSharedPreferences("search", Context.MODE_PRIVATE);
-            editor = sharedPreferences.edit();
+
+            //TODO: Xử lý Json cho kết quả 1
+
             try {
+
                 Calendar c = Calendar.getInstance();
+                //Thêm ngày và giờ cho History
                 history.setDate_time(c.get(Calendar.DAY_OF_MONTH)+"/"+(c.get(Calendar.MONTH)+1)+"\n"
                         +c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE));
 
-                //todo:Put TIME
-                editor.putString("time", c.get(Calendar.DAY_OF_MONTH)+"/"+(c.get(Calendar.MONTH)+1)+"\n"
-                        +c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE));
+
                 JSONObject jsonObject = new JSONObject(response1);
+                //Todo: Lấy tên thành phố
                 String nameCity = jsonObject.getString("name");
+                //Thêm tên thành phố cho History
                 history.setName_city(nameCity);
+                //Set text
                 tvCity.setText(nameCity);
 
-                //todo:Put CITY
-                editor.putString("city", nameCity);
-//                System.out.println(nameCity);
 
-
-                //Todo: Lấy latiude và longtiude
+                //Todo: Lấy latiude và longtiude (Không cần dùng đến)
 
                 JSONObject jsonCoor = jsonObject.getJSONObject("coord");
 //                App.LAT = jsonCoor.getString("lat");
 //                App.LON = jsonCoor.getString("lon");
-                editor.putString("lat", jsonCoor.getString("lat"));
-                editor.putString("lon", jsonCoor.getString("lon"));
-                //Todo:Lấy mô tả thời tiết
 
+                //Todo:Lấy mô tả thời tiết
                 JSONArray weatherJson = jsonObject.getJSONArray("weather");
                 JSONObject weather = weatherJson.getJSONObject(0);
                 String weatherDes = weather.getString("description");
+                //Thêm mô tả thời tiết vào History
                 history.setDescription(weatherDes);
+                //Set text
                 tvDes.setText(weatherDes);
 
-                //todo:Put DES
-                editor.putString("des", weatherDes);
-
-//                System.out.println(weatherDes);
 
                 //Todo: Lấy nhiệt độ
-
                 JSONObject mainJson = jsonObject.getJSONObject("main");
                 String temp = mainJson.getString("temp");
+                //Ta đưa về kiểu interger
                 double d1 = Double.parseDouble(temp);
                 int i1 = (int) d1;
+                //Thêm nhiệt độ vào History
                 history.setTemp(i1);
+                //Set text
                 tvTemp.setText(i1+"°C");
 
-                //todo:Put TEMP
-                editor.putInt("temp", i1);
-//                System.out.println(i1);
-
                 //Todo: Lấy áp suất
-
                 String pressure = mainJson.getString("pressure");
-
-
+                //Ta đưa về kiểu interger
                 double d2 = Double.parseDouble(pressure);
                 int i2 = (int) d2;
+                //Thêm áp suất vào History
                 history.setPressure(i2);
+                //Set text
                 tvPres.setText(i2+" hPa");
 
-                //todo:Put PRESSSURE
-                editor.putInt("pres", i2);
-//                System.out.println(i2);
 
                 //Todo: Lấy độ ẩm
-
                 String humidity = mainJson.getString("humidity");
-
-
+                //Ta đưa về kiểu interger
                 double d3 = Double.parseDouble(humidity);
                 int i3 = (int) d3;
+                //Thêm độ ẩm vào History
                 history.setHumidity(i3);
+                //Set text
                 tvHumi.setText(" " + i3+" %");
 
-                //todo: Put Humidity
-                editor.putInt("humi", i3);
-//                System.out.println(i3);
 
                 //Todo: Lấy tốc độ gió
-
                 JSONObject windJson = jsonObject.getJSONObject("wind");
                 String speedWind = windJson.getString("speed");
-
+                //Ta đưa về kiểu interger
                 double d4 = Double.parseDouble(speedWind);
                 int i4 = (int) d4;
-
+                //Set text
                 tvWind.setText(i4+" m/s");
 //                System.out.println(i4);
 
@@ -396,28 +389,34 @@ public class HomeFragment extends Fragment {
                     }
 
                 }
+                //Thêm tên image vào history
                 history.setImg(weatherImg);
-                editor.putString("img", weatherImg);
-                editor.commit();
 
+                //Todo: Thêm đối tượng history ta tạo vào CSDL
                 sqlHelper.insertHistory(history);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            //TODO: Xử lý Json cho kết quả 2
             try {
 
                 JSONObject jsonObject = new JSONObject(response2);
 
                 JSONArray listJson = jsonObject.getJSONArray("list");
+                //Lấy list weather trong 5 ngày tiếp theo (đường dẫn sẽ có cnt = 6 )
                 for(int i = 1; i < listJson.length(); i++){
                     JSONObject weatherJson = listJson.getJSONObject(i);
                     JSONObject tempJson = weatherJson.getJSONObject("temp");
 
+                    //Lấy nhiệt độ trong ngày
                     Double celcius = Double.parseDouble(tempJson.getString("day"));
+                    //Set text nhiệt độ
                     formatTempTextView(i).setText(Math.round(celcius)+ "°C");
-
 //                    System.out.println(tempJson.getString("day"));
 
+
+                    //Lấy tên icon để set hình ảnh cho imageView
                     JSONArray weatherArr = weatherJson.getJSONArray("weather");
                     JSONObject weather = weatherArr.getJSONObject(0);
                     //Todo: Đọc ảnh thời tiết

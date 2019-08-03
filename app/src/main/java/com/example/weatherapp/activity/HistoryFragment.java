@@ -33,13 +33,14 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_history, container, false);
         mLvData = v.findViewById(R.id.mLvHis);
-        setdata();
+        setdata();  //Lấy dữ liệu từ SQL cho mListHistory;
         mAdapter = new HistoryAdapter(mListHistory, getActivity());
         mLvData.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
         return v;
     }
 
+    //Phương thức lấy data History từ Database
     public void setdata(){
         sqlHelper = new SQLHelper(getActivity());
         mListHistory = sqlHelper.getArrayHistory();

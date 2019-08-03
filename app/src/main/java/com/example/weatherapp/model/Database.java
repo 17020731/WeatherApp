@@ -13,10 +13,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Database {
+
     Set<City> usersList = new HashSet<>();
+
+
     public  Database(Context context){
         loadJSONFromAssset(context);
     }
+
 
     public Set<City> loadJSONFromAssset(Context context){
 
@@ -24,17 +28,21 @@ public class Database {
             InputStream is = context.getAssets().open("city.list.min.json");
             int size = is.available();
 
-            // Read the entire asset into a local byte buffer.
+            // Đọc dữ liệu từ file .json trong Assets bằng buffer
             byte[] buffer = new byte[size];
             is.read(buffer);
             is.close();
             String text = new String(buffer, "utf-8");
 
 
+            //Sử dụng Gson để chuyển Json về Object City
             Gson gson = new GsonBuilder().create();
             Type listType = new TypeToken<HashSet<City>>() {}.getType();
-            usersList = gson.fromJson(text, listType);
-            System.out.println("So luong "+ usersList.size());
+            usersList = gson.fromJson(text, listType);  //Chuyển toàn bộ json thành mảng City
+
+
+            //Todo: TEST
+//            System.out.println("So luong "+ usersList.size());
 //            for(City c : usersList){
 //                System.out.println("json " + c.toString());
 //            }
