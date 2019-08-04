@@ -1,2 +1,2 @@
-# WeatherApp
+# WeatherAppProject
 Weather Android App
