@@ -235,7 +235,6 @@ public class HomeFragment extends Fragment {
             String response2 = request.sendGet(urlDaily);
             //Nối 2 kết quả bằng dấu enter
             String response = response1 +"\n" + response2;
-
             return response;
         }
 

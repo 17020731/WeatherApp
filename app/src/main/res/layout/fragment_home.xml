@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    tools:context=".activity.HomeFragment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/bo2weather_backgroundtoi3">
+        android:background="@mipmap/bo2weather_background2">
 
 
         <LinearLayout
@@ -18,15 +19,14 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvCity"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="London, Uk"
+
                 android:textAlignment="center"
                 android:textColor="#FFF"
                 android:textSize="30dp" />
@@ -35,17 +35,17 @@
                 android:id="@+id/tvNow"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="07/07"
                 android:textAlignment="center"
                 android:textColor="#FFF"
-                android:textSize="25dp"/>
+                android:textSize="25dp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_below="@+id/linearLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="description"
+
                 android:textColor="#FFF"
                 android:textSize="20dp" />
 
@@ -70,16 +70,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="nhiệt độ"
                 android:textColor="#FFF"
                 android:textSize="30dp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout3"
-            android:layout_below="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout2"
 
             android:layout_marginTop="20dp"
             android:gravity="center"
@@ -106,7 +105,7 @@
                     android:id="@+id/tvPres"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1085 hpa"
+
                     android:textColor="#FFF"
                     android:textSize="20dp" />
             </LinearLayout>
@@ -131,7 +130,6 @@
                     android:id="@+id/tvHumi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 80%"
                     android:textColor="#FFF"
                     android:textSize="20dp" />
             </LinearLayout>
@@ -156,7 +154,7 @@
                     android:id="@+id/tvWind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4 m/s"
+
                     android:textColor="#FFF"
                     android:textSize="20dp" />
             </LinearLayout>
@@ -169,9 +167,9 @@
 
         <LinearLayout
             android:id="@+id/linearLayout4"
-            android:layout_below="@+id/linearLayout3"
             android:layout_width="411dp"
             android:layout_height="120dp"
+            android:layout_below="@+id/linearLayout3"
             android:layout_marginTop="30dp"
             android:orientation="vertical">
 
@@ -205,18 +203,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="SAT"
-                        android:textSize="20dp"
-                        android:textColor="#FFF" />
+
+                        android:textColor="#FFF"
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/date1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="08/07"
+
                         android:textColor="#FFF"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp" />
 
                     <ImageView
                         android:id="@+id/imgWeather1"
@@ -243,18 +241,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="SUN"
-                        android:textSize="20dp"
-                        android:textColor="#FFF" />
+
+                        android:textColor="#FFF"
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/date2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="08/07"
+
                         android:textColor="#FFF"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp" />
 
                     <ImageView
                         android:id="@+id/imgWeather2"
@@ -281,18 +279,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="MON"
-                        android:textSize="20dp"
-                        android:textColor="#FFF" />
+
+                        android:textColor="#FFF"
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/date3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="09/07"
+
                         android:textColor="#FFF"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp" />
 
                     <ImageView
                         android:id="@+id/imgWeather3"
@@ -320,18 +318,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="SAT"
-                        android:textSize="20dp"
-                        android:textColor="#FFF" />
+
+                        android:textColor="#FFF"
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/date4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="10/07"
+
                         android:textColor="#FFF"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp" />
 
                     <ImageView
                         android:id="@+id/imgWeather4"
@@ -358,18 +356,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="SAT"
-                        android:textSize="20dp"
-                        android:textColor="#FFF" />
+
+                        android:textColor="#FFF"
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/date5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="08/07"
+
                         android:textColor="#FFF"
-                        android:textSize="15dp"/>
+                        android:textSize="15dp" />
 
 
                     <ImageView
