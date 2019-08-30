@@ -2,7 +2,7 @@
 
 <strong>ỨNG DỤNG DỰ BÁO THỜI TIẾT - Weather Android App (Android Java) </strong>
 - Chạy trên nền tảng di động Android và thích hợp với mọi phiên bản.
-- Được viết trên công cụ Android Studio và bằng ngôn ngữ lập trình JAVA.
+- Sử dụng Platform Android Studio và bằng ngôn ngữ lập trình JAVA.
 - Truy xuất cơ sở dữ liệu (database) rộng lớn, nâng cao trải nghiệm cho người dùng.
 - Ứng dụng tiện lợi, dễ sử dụng cho người dùng thường xuyên theo dõi thời tiết.
 </br>
