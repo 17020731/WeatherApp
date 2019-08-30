@@ -5,6 +5,7 @@
 - Sử dụng Platform Android Studio và bằng ngôn ngữ lập trình JAVA.
 - Truy xuất cơ sở dữ liệu (database) rộng lớn, nâng cao trải nghiệm cho người dùng.
 - Ứng dụng tiện lợi, dễ sử dụng cho người dùng thường xuyên theo dõi thời tiết.
+- Tài liệu ứng dụng: https://github.com/17020731/WeatherAppProject/files/3558879/SlideApp.pptx
 </br>
 </br>
 </br>
