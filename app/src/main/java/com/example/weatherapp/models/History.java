@@ -1,4 +1,4 @@
-package com.example.weatherapp.model;
+package com.example.weatherapp.models;
 
 public class History {
     private String name_city;

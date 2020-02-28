@@ -1,59 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    tools:context=".main.MainActivity">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:background="@drawable/night_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/imgMenu"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@mipmap/menu"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="20dp"
-            />
-            <AutoCompleteTextView
-            android:id="@+id/edSearch"
-            android:layout_centerInParent="true"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:imeOptions="actionDone"
-            android:hint="Address, City and Location"
-            android:textSize="15dp"
-            android:textColorHint="#9B9191"
-            android:textColor="#FFF"
-            android:inputType="text"
-            android:maxLines="1"/>
-        <ImageButton
-            android:id="@+id/btnSearch"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@mipmap/search"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_centerInParent="true"/>
-    </RelativeLayout>
+        android:layout_height="match_parent">
 
-    <androidx.viewpager.widget.ViewPager
-        android:layout_below="@id/relativeLayout"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/mViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="500dp">
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp">
+
+            <ImageView
+                android:id="@+id/btnMenu"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/menu"
+                android:tint="#000" />
+
+            <AutoCompleteTextView
+                android:id="@+id/edSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginHorizontal="20dp"
+                android:layout_toLeftOf="@id/btnSearch"
+                android:layout_toRightOf="@id/btnMenu"
+                android:fontFamily="@font/light"
+                android:hint="Address, City and Location"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textSize="14dp" />
+
+            <ImageView
+                android:id="@+id/btnSearch"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/search"
+                android:tint="#000" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/relativeLayout"
+            android:background="#000" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/mViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/tabLayout"
+            android:layout_below="@id/view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_above="@id/tabLayout"
+            android:background="#000" />
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
-            android:background="#797EA8"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </com.google.android.material.tabs.TabLayout>
-    </androidx.viewpager.widget.ViewPager>
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:tabIndicatorHeight="0dp"
+            app:tabTextAppearance="@style/CustomTabText" />
+    </RelativeLayout>
 
-</RelativeLayout>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#fff"
+        app:headerLayout="@layout/header_layout"
+        app:itemTextColor="#000"
+        app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

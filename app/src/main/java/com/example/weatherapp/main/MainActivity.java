@@ -1,30 +1,44 @@
-package com.example.weatherapp.activity;
+package com.example.weatherapp.main;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.adapter.ViewPageAdapter;
-import com.example.weatherapp.model.City;
-import com.example.weatherapp.model.Database;
-import com.example.weatherapp.model.SQLHelper;
+import com.example.weatherapp.charts.ForecastFragment;
+import com.example.weatherapp.histories.HistoryFragment;
+import com.example.weatherapp.home.HomeFragment;
+import com.example.weatherapp.models.City;
+import com.example.weatherapp.models.Database;
+import com.example.weatherapp.models.SQLHelper;
+import com.example.weatherapp.setting.SettingActivity;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,18 +50,21 @@ public class MainActivity extends AppCompatActivity {
     SQLHelper sqlHelper;
 
     private AutoCompleteTextView autoSearch;
-    private ImageButton btnSearch;
+    private ImageView btnMenu, btnSearch;
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+
+    private DrawerLayout drawer;
+    private NavigationView navigationView;
+    private CircleImageView avatar;
+    private TextView name;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
         mViewPage = findViewById(R.id.mViewPager);
 
         final Fragment homeFragment = new HomeFragment();
@@ -73,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
         autoSearch = findViewById(R.id.edSearch);
 
 
-
-
         sqlHelper = new SQLHelper(this);
         sp = getSharedPreferences("search", Context.MODE_PRIVATE);
 
@@ -83,14 +98,65 @@ public class MainActivity extends AppCompatActivity {
         final List<City> data = new ArrayList<>();
         data.addAll(set);
 
-        final ArrayList<String>city_name = new ArrayList<>();
-        for(City c : data){
+        final ArrayList<String> city_name = new ArrayList<>();
+        for (City c : data) {
             city_name.add(c.getName());
         }
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.search_item, city_name);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.search_item, city_name);
         autoSearch.setAdapter(arrayAdapter);
         autoSearch.setThreshold(1);
 
+        drawer = findViewById(R.id.drawer);
+        navigationView = findViewById(R.id.navigationView);
+        navigationView.setItemIconTintList(null);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                Intent intent;
+                switch (id) {
+
+                    case R.id.home:
+                        drawer.closeDrawer(Gravity.LEFT);
+                        mViewPage.setCurrentItem(0);
+                        break;
+
+                    case R.id.chart:
+                        drawer.closeDrawer(Gravity.LEFT);
+                        mViewPage.setCurrentItem(1);
+                        break;
+
+                    case R.id.history:
+                        drawer.closeDrawer(Gravity.LEFT);
+                        mViewPage.setCurrentItem(2);
+                        break;
+
+                    case R.id.setting:
+                        drawer.closeDrawer(Gravity.LEFT);
+                        intent = new Intent(MainActivity.this, SettingActivity.class);
+                        startActivity(intent);
+                        break;
+
+                    case R.id.about:
+                        drawer.closeDrawer(Gravity.LEFT);
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("Weather Application")
+                                .setMessage("Version" + ": 1.1.3\n" + "Version code" + ": 10")
+                                .setPositiveButton("OK", null)
+                                .show();
+                        break;
+                }
+                return false;
+            }
+        });
+        btnMenu = findViewById(R.id.btnMenu);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(Gravity.LEFT);
+            }
+        });
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,10 +180,9 @@ public class MainActivity extends AppCompatActivity {
 
                         getSupportFragmentManager().beginTransaction().detach(forecastFragment).attach(forecastFragment).commit();
 
-                    }
-                    else{
+                    } else {
                         autoSearch.setText("");
-                        Toast.makeText(getApplicationContext(),"Không có dữ liệu!!\n Mời nhập lại!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Không có dữ liệu!!\n Mời nhập lại!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

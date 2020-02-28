@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/mode"
+        android:icon="@mipmap/home"
+        android:title="Dark mode"
+        app:actionLayout="@layout/layout_switch"/>
+    <group android:id="@+id/important">
+        <item android:title="Main">
+            <menu>
+                <item android:id="@+id/home"
+                    android:icon="@mipmap/home"
+                    android:title="Home" />
+                <item android:id="@+id/chart"
+                    android:icon="@mipmap/chart"
+                    android:title="Forecast" />
+            </menu>
+        </item>
+    </group>
+    <item android:title="Social">
+        <menu>
+            <item android:id="@+id/history"
+                android:icon="@mipmap/history"
+                android:title="History" />
+            <item android:id="@+id/setting"
+                android:icon="@mipmap/setting"
+                android:title="Setting" />
+            <item android:id="@+id/about"
+                android:icon="@mipmap/about"
+                android:title="About" />
+        </menu>
+    </item>
+
+</menu>

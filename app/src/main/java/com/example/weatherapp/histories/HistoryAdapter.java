@@ -1,6 +1,7 @@
-package com.example.weatherapp.adapter;
+package com.example.weatherapp.histories;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.model.History;
+import com.example.weatherapp.models.History;
 
 import java.util.ArrayList;
 
@@ -106,7 +107,13 @@ public class HistoryAdapter extends BaseAdapter {
         TextView tvTime = view.findViewById(R.id.tvTime);
         tvTime.setText(mListHistory.get(position).getDate_time());
 
-
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, HistoryDetailActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
         return view;
     }
 }

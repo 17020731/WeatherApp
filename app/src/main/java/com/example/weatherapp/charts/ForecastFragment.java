@@ -1,4 +1,4 @@
-package com.example.weatherapp.activity;
+package com.example.weatherapp.charts;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,15 +8,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.model.HttpRequest;
-import com.example.weatherapp.model.Weather;
+import com.example.weatherapp.models.HttpRequest;
+import com.example.weatherapp.models.Weather;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -84,10 +83,9 @@ public class ForecastFragment extends Fragment implements OnChartValueSelectedLi
         sharedPreferences = getActivity().getSharedPreferences("search", Context.MODE_PRIVATE);
 
 
-
         //Todo: Set up tên thành phố, và get dữ liệu
-        tvName.setText("City: " + sharedPreferences.getString("name","Hanoi"));
-        new HttpWeatherCity().execute(sharedPreferences.getString("id","1581130"));
+        tvName.setText("City: " + sharedPreferences.getString("name", "Hanoi"));
+        new HttpWeatherCity().execute(sharedPreferences.getString("id", "1581130"));
 
         return v;
     }
@@ -110,9 +108,8 @@ public class ForecastFragment extends Fragment implements OnChartValueSelectedLi
     }
 
 
-
     //Phương thức để định dạng JSON "dt_txt" về calendar
-    public static Calendar getTime(String time){
+    public static Calendar getTime(String time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 
         Calendar calendar = null;
@@ -127,12 +124,12 @@ public class ForecastFragment extends Fragment implements OnChartValueSelectedLi
     }
 
     //Tạo biểu đồ đường Line Chart
-    private LineData generateLineChart(ArrayList<Weather>arr)  {
+    private LineData generateLineChart(ArrayList<Weather> arr) {
 
         LineData d = new LineData();
 
-        int data[] = new int [arr.size()];
-        for(int i = 0; i < arr.size(); i++){
+        int data[] = new int[arr.size()];
+        for (int i = 0; i < arr.size(); i++) {
             data[i] = Integer.parseInt(arr.get(i).getTemperature());
         }
 
@@ -159,19 +156,19 @@ public class ForecastFragment extends Fragment implements OnChartValueSelectedLi
         return d;
     }
 
-    public class HttpWeatherCity extends AsyncTask<String, Void , String> {
+    public class HttpWeatherCity extends AsyncTask<String, Void, String> {
 
 
         HttpRequest request = new HttpRequest();    //Đối tượng để thực hiện kết nối và lấy dữ liệu
         ArrayList<Weather> arr = new ArrayList<>();     //mảng Weather trong 5 ngày /3 giờ
 
-        HttpWeatherCity(){
+        HttpWeatherCity() {
         }
 
         @Override
         protected String doInBackground(String... params) {
             //Todo: Đường dẫn lấy dữ liệu dự báo trong 5 ngày/ 3 giờ
-            String url = "https://api.openweathermap.org/data/2.5/forecast?id="+params[0]+"&units=metric&appid=211ff006de9aba9ddd122331f87cdf8b";
+            String url = "https://api.openweathermap.org/data/2.5/forecast?id=" + params[0] + "&units=metric&appid=211ff006de9aba9ddd122331f87cdf8b";
             // Nhận kết quả trả về từ đường dẫn
             String response = request.sendGet(url);
 
@@ -179,7 +176,7 @@ public class ForecastFragment extends Fragment implements OnChartValueSelectedLi
         }
 
         @Override
-        protected void onPostExecute(String response){
+        protected void onPostExecute(String response) {
 
             //TODO: Xử lí JSON
             try {
@@ -187,7 +184,7 @@ public class ForecastFragment extends Fragment implements OnChartValueSelectedLi
 
                 //Todo: Lấy dữ liệu
                 JSONArray fullJson = jsonObject.getJSONArray("list");
-                for(int i = 0; i < fullJson.length(); i++){
+                for (int i = 0; i < fullJson.length(); i++) {
 
                     Weather weather = new Weather();
 
@@ -202,7 +199,7 @@ public class ForecastFragment extends Fragment implements OnChartValueSelectedLi
 
                     //Todo: Lấy nhiệt độ (Đơn vị: Celcius)
                     Double celcius = Double.parseDouble(mainJson.getString("temp"));
-                    weather.setTemperature(Math.round(celcius)+"");
+                    weather.setTemperature(Math.round(celcius) + "");
 //                    System.out.println(Math.round(celcius)+ "°C");
 
 
@@ -220,18 +217,17 @@ public class ForecastFragment extends Fragment implements OnChartValueSelectedLi
                     try {
                         weather.setRain(listJson.getJSONObject("rain").getString("3h"));
 //                        System.out.println(listJson.getJSONObject("rain").getString("3h"));
-                    }
-                    catch(JSONException e){
-                        weather.setRain(0+"");
+                    } catch (JSONException e) {
+                        weather.setRain(0 + "");
 //                        System.out.println(0);
                     }
 
 //                    //Todo: Lấy date và time
                     String date = listJson.getString("dt_txt");
                     Calendar c = getTime(date);
-                    weather.setDate(c.get(Calendar.DAY_OF_MONTH)+"/"+c.get(Calendar.MONTH)+1);
+                    weather.setDate(c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.MONTH) + 1);
 
-                    weather.setTime(c.get(Calendar.HOUR_OF_DAY)+ ":"+c.get(Calendar.MINUTE));
+                    weather.setTime(c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE));
 //
                     //Todo: Thêm weather vào mảng weather
                     arr.add(weather);
@@ -254,12 +250,11 @@ public class ForecastFragment extends Fragment implements OnChartValueSelectedLi
 
             //Tạo các nhãn cho trục hoành
             final List<String> xLabel = new ArrayList<>();
-            for(int i = 0; i < COUNT; i++){
+            for (int i = 0; i < COUNT; i++) {
                 //Todo: Xử lí số liệu 12h
-                if(arr.get(i).getTime().equals("0:0") && arr.get(i+1).getTime().equals("15:0")){
+                if (arr.get(i).getTime().equals("0:0") && arr.get(i + 1).getTime().equals("15:0")) {
                     xLabel.add("12:0");
-                }
-                else
+                } else
                     xLabel.add(arr.get(i).getTime());
             }
 

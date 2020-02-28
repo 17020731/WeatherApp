@@ -1,4 +1,4 @@
-package com.example.weatherapp.adapter;
+package com.example.weatherapp.main;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;

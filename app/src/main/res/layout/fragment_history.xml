@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFF">
+        android:background="#f9feff">
 
 
         <ListView
-            android:layout_alignParentBottom="true"
             android:id="@+id/mLvHis"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
             android:divider="@android:color/transparent"
-            android:dividerHeight="10.0sp">
-        </ListView>
-
-
+            android:dividerHeight="10.0sp"></ListView>
     </RelativeLayout>
-</FrameLayout>
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.weatherapp.model;
+package com.example.weatherapp.models;
 
 import java.io.BufferedReader;
 import java.io.IOException;

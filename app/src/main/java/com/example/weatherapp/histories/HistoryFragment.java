@@ -1,4 +1,4 @@
-package com.example.weatherapp.activity;
+package com.example.weatherapp.histories;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.weatherapp.R;
-import com.example.weatherapp.adapter.HistoryAdapter;
-import com.example.weatherapp.model.History;
-import com.example.weatherapp.model.SQLHelper;
+import com.example.weatherapp.models.History;
+import com.example.weatherapp.models.SQLHelper;
 
 import java.util.ArrayList;
 
