@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/mode"
-        android:icon="@mipmap/home"
         android:title="Dark mode"
-        app:actionLayout="@layout/layout_switch"/>
+        app:actionLayout="@layout/swtich_drawer"/>
     <group android:id="@+id/important">
         <item android:title="Main">
             <menu>
@@ -23,9 +22,9 @@
             <item android:id="@+id/history"
                 android:icon="@mipmap/history"
                 android:title="History" />
-            <item android:id="@+id/setting"
-                android:icon="@mipmap/setting"
-                android:title="Setting" />
+            <item android:id="@+id/language"
+                android:icon="@mipmap/language"
+                android:title="Language" />
             <item android:id="@+id/about"
                 android:icon="@mipmap/about"
                 android:title="About" />
