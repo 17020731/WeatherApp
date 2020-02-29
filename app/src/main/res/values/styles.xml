@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyTheme" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
     <!--tab font-->
     <style name="CustomTabText" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14dp</item>

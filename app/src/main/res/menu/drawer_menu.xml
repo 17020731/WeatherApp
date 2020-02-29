@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/mode"
+    <item android:id="@+id/dark_mode"
         android:title="Dark mode"
-        app:actionLayout="@layout/swtich_drawer"/>
+        app:actionLayout="@layout/drawer_switch"/>
     <group android:id="@+id/important">
         <item android:title="Main">
             <menu>

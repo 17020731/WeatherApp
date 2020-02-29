@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--For darkmode-->
+    <color name="black_white">#fff</color>
+    <color name="white_black">#000</color>
+    <color name="default_background">#161616</color>
+    <color name="default_text">#d5d5d5</color>
+    <color name="black_text">#fff</color>
+</resources>

@@ -7,6 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
 
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"  />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,7 +31,7 @@
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/menu"
-                android:tint="#000" />
+                android:tint="#fff" />
 
             <AutoCompleteTextView
                 android:id="@+id/edSearch"
@@ -37,10 +42,12 @@
                 android:layout_toLeftOf="@id/btnSearch"
                 android:layout_toRightOf="@id/btnMenu"
                 android:fontFamily="@font/light"
-                android:hint="Address, City and Location"
+                android:hint="@string/address_city_and_location"
+                android:textColorHint="#d5d5d5"
                 android:imeOptions="actionDone"
                 android:inputType="text"
                 android:maxLines="1"
+                android:textColor="#fff"
                 android:textSize="14dp" />
 
             <ImageView
@@ -50,7 +57,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/search"
-                android:tint="#000" />
+                android:tint="#fff" />
         </RelativeLayout>
 
         <View
@@ -58,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@id/relativeLayout"
-            android:background="#000" />
+            android:background="@color/black_white" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/mViewPager"
@@ -71,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_above="@id/tabLayout"
-            android:background="#000" />
+            android:background="@color/black_white" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -79,6 +86,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             app:tabIndicatorHeight="0dp"
+            app:tabTextColor="#fff"
+            app:tabSelectedTextColor="@color/colorAccent"
             app:tabTextAppearance="@style/CustomTabText" />
     </RelativeLayout>
 
@@ -87,9 +96,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#fff"
+        android:background="@color/white_black"
         app:headerLayout="@layout/header_layout"
-        app:itemTextColor="#000"
+        app:itemTextColor="@color/black_white"
         app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

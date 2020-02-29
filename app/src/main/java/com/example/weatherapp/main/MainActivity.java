@@ -46,8 +46,10 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.Set;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -73,14 +75,18 @@ public class MainActivity extends AppCompatActivity {
     private CircleImageView avatar;
     private TextView name;
     private SweetAlertDialog pDialog;
-
+    String mode = "";
+    private ImageView background;
+    private Integer mListBackground [] = {R.mipmap.background_early_morning, R.mipmap.background_morning, R.mipmap.background_night_1, R.mipmap.background_night_2, R.mipmap.background_night_3, R.mipmap.background_midnight};
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        drawer = findViewById(R.id.drawer);
+        navigationView = findViewById(R.id.navigationView);
         mViewPage = findViewById(R.id.mViewPager);
 
+        background = findViewById(R.id.background);
         final Fragment homeFragment = new HomeFragment();
         final Fragment forecastFragment = new ForecastFragment();
         final Fragment historyFragment = new HistoryFragment();
@@ -103,6 +109,18 @@ public class MainActivity extends AppCompatActivity {
         btnSearch = findViewById(R.id.btnSearch);
         autoSearch = findViewById(R.id.edSearch);
 
+        Calendar rightNow = Calendar.getInstance();
+        int currentHour = rightNow.get(Calendar.HOUR_OF_DAY);
+
+        if (currentHour >= 3 && currentHour <= 6){
+            background.setBackgroundResource(mListBackground[0]);
+        } else if (currentHour >= 7 && currentHour <= 18){
+            background.setBackgroundResource(mListBackground[1]);
+        } else if (currentHour >= 19 && currentHour >= 23){
+            background.setBackgroundResource(mListBackground[new Random().nextInt(3)]+2);
+        } else if (currentHour >= 0 && currentHour <= 2){
+            background.setBackgroundResource(mListBackground[5]);
+        }
 
         sqlHelper = new SQLHelper(this);
         sp = getSharedPreferences("search", Context.MODE_PRIVATE);
@@ -111,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         String lang = sp.getString("lang", "en");
         loadLocal(lang);
 
-        String mode = sp.getString("mode", "light");
+        mode = sp.getString("mode", "dark");
         if(mode.equals("light")){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         } else {
@@ -132,8 +150,7 @@ public class MainActivity extends AppCompatActivity {
         autoSearch.setAdapter(arrayAdapter);
         autoSearch.setThreshold(1);
 
-        drawer = findViewById(R.id.drawer);
-        navigationView = findViewById(R.id.navigationView);
+
         navigationView.setItemIconTintList(null);
 
 
@@ -143,9 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 Intent intent;
                 switch (id) {
-                    case R.id.mode:
-                        SwitchCompat switchCompat = menuItem.getActionView().findViewById(R.id.switchCompat);
-                        setDayNightMode(switchCompat);
+                    case R.id.dark_mode:
                         break;
                     case R.id.home:
                         drawer.closeDrawer(Gravity.LEFT);
@@ -263,6 +278,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        SwitchCompat drawerSwitch = (SwitchCompat) navigationView.getMenu().findItem(R.id.dark_mode).getActionView();
+        setDayNightMode(drawerSwitch);
         btnMenu = findViewById(R.id.btnMenu);
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -304,7 +321,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setDayNightMode(SwitchCompat swMode){
-        String mode = sp.getString("mode", "light");
         if(mode.equals("light")){
             swMode.setChecked(false);
         } else {

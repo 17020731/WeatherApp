@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bold"
-            android:text="Choose your language"
+            android:text="@string/choose_your_language"
             android:gravity="center"
             android:textSize="16dp" />
 
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:textSize="16dp"
-                    android:text="English"
+                    android:text="@string/english"
                     android:textStyle="bold"
                     android:fontFamily="@font/bolditalic"/>
                 <ImageView
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/bolditalic"
-                    android:text="Japanese"
+                    android:text="@string/japanese"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
@@ -103,7 +103,7 @@
                 android:layout_height="50dp"
                 android:fontFamily="@font/bold"
                 android:gravity="center"
-                android:text="Submit"
+                android:text="@string/submit"
                 android:textSize="20dp"
                 android:background="@drawable/border_submit"
                 android:textColor="#000" />

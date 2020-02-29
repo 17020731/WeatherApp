@@ -107,13 +107,6 @@ public class HistoryAdapter extends BaseAdapter {
         TextView tvTime = view.findViewById(R.id.tvTime);
         tvTime.setText(mListHistory.get(position).getDate_time());
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, HistoryDetailActivity.class);
-                mContext.startActivity(intent);
-            }
-        });
         return view;
     }
 }

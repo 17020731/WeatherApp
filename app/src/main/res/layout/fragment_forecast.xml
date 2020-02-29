@@ -21,9 +21,9 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textColor="#000"
+                android:textColor="#fff"
                 android:fontFamily="@font/meidum"
-                android:text="City: Hanoi"
+                android:text="@string/city"
                 android:textSize="18dp" />
 
         </LinearLayout>

@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/bo2weather_background2"/>
+        android:src="@mipmap/background_midnight"/>
     <LinearLayout
         android:orientation="vertical"
         android:padding="30dp"
@@ -19,13 +19,13 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/bo2weather_backgroundtoi4"/>
+            android:src="@mipmap/background_night_2"/>
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/meidum"
-            android:text="Dind The Hiep"
+            android:text="Vũ Thị Hải Yến"
             android:textColor="#fff"/>
     </LinearLayout>
 </RelativeLayout>
